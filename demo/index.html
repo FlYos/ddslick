@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Article">
+    <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# blog: http://ogp.me/ns/blog#">
+        <meta charset="utf-8" />
+        <title>ddSlick - a jQuery plugin for custom drop down with images</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/jquery.ddslick.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+        
+        <body onload="prettyPrint();">
+            <a href="https://github.com/FlYos"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+            
+            <section class="wrapper">
+                <h2>Why is this plugin useful</h2>
+                <p>With traditional drop downs i.e. using <code>&lt;select&gt; &lt;option&gt; &lt;/option&gt; &lt;/select&gt;</code> you are limited to only text and value. But with this easily configurable jquery plugin, you can now create a custom drop down that can very well include images, a short description, along with your usual text and value. Take a look at the following demos in action.</p>
+                
+                <section>
+                    <h2 id="demo">
+                    Demos:
+                    </h2>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">1</span>Basic Drop down using JSON
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoBasic">
+                                </div>
+                                <div class="spacer">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">$('#demoBasic').ddslick({
+        data: ddData,
+        width: 300,
+        imagePosition: "left",
+        selectText: "Select your favorite social network",
+        onSelected: function (data) {
+            console.log(data);
+        }
+});</pre>
+                        <p>
+                            When using JSON to populate, the plugin requires the specific data format.<a id="showSampleData">
+                                Click here to see the sample JSON data for the plugin.
+                            </a>
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">2</span>Render from HTML select options
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <select id="demo-htmlselect" name="test-name">
+                                    <option value="0" data-imagesrc="http://i.imgur.com/XkuTj3B.png" data-description="Description with Facebook">Facebook</option>
+                                    <option value="1" data-imagesrc="http://i.imgur.com/8ScLNnk.png" data-description="Description with Twitter">Twitter</option>
+                                    <option value="2" data-imagesrc="http://i.imgur.com/aDNdibj.png" data-description="Description with LinkedIn">LinkedIn</option>
+                                    <option value="3" data-imagesrc="http://i.imgur.com/kFAk2DX.png" data-description="Description with Foursquare">Foursquare</option>
+                                </select>
+                                <div class="spacer">
+                                </div>
+                                <button id="make-it-slick">
+                                Make it slick!
+                                </button>
+                                <button id="restore">
+                                Restore to Original
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+//Make it slick!
+$('#make-it-slick').on('click', function(){
+    $('#demo-htmlselect').ddslick();
+});
+//Restore Original
+$('#restore').on('click', function(){
+    $('#demo-htmlselect').ddslick('destroy');
+});
+</pre>
+                        <p>
+                            Use HTML5 data attributes <code>data-imagesrc</code> and <code>data-description</code>
+                            with your regular HTML select elements to add images and description. The plugin
+                            will retrieve <code>text</code>, <code>value</code>, and <code>selected</code> attributes
+                            from the elements itself.<br />
+                            <a id="showSampleSelectList">Click here to see the HTML select element for this example.</a>
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">3</span>GET Selected Dropdown Option
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoShowSelected">
+                                </div>
+                                <div class="spacer">
+                                </div>
+                                <button id="showSelectedData">
+                                Get Selection
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoShowSelected').ddslick({
+    data: ddData,
+    selectText: "Select your favorite social network",
+});
+$('#showSelectedData').on('click', function () {
+    var ddData = $('#demoShowSelected').data('ddslick');
+    displaySelectedData("2: Getting Selected Dropdown Data" , ddData);
+});
+</pre>
+                        <p>
+                            You may use jquery .data() with your selector to get data from plugin. <code>$('#demoShowSelected').data('ddslick');</code>
+                            will return a js object that contains:
+                        </p>
+                        <ul>
+                            <li>selectedIndex <span class="weak">(0 based),</span></li>
+                            <li>selectedItem <span class="weak">(HTML 'li' element),</span></li>
+                            <li>selectedData <span class="weak">(nested object with text, value, description, imageSrc)</span></li>
+                        </ul>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">4</span>SET selected Dropdown Option
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <p id="setIndexMsg">
+                                    Try an index between 0 to 4
+                                </p>
+                                <input type="text" id="setIndex" value="3" />
+                                <button id="btnSetSelected">
+                                Set Selection
+                                </button>
+                                <div class="spacer">
+                                </div>
+                                <div id="demoSetSelected">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoSetSelected').ddslick({
+    data: ddData,
+    selectText: "Select your favorite social network"
+});
+$('#btnSetSelected').on('click', function () {
+    var i = $('#setIndex').val();
+    if(i &gt;= 0 &amp;&amp; i &lt;5)
+       $('#demoSetSelected').ddslick('select', {index: i });
+    else 
+       $('#setIndexMsg').effect('highlight',2400);
+});
+</pre>
+                        <p>
+                            You may use plugin's select method like <code>
+                            $('#demoSetSelected').ddslick('select',
+                            {index: i });
+                            </code><br />
+                            to select a particular index.
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">5</span>Callback Function on Dropdown Selection
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoCallback">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoCallback').ddslick({
+    data: ddData,
+    selectText: "Select your favorite social network",
+    onSelected: function(data){
+        displaySelectedData("3: Callback Function on Dropdown Selection" , data);
+    }
+});
+</pre>
+                        <p>
+                            Use plugin's <code>onSelected</code> callback function on selecting one of the drop
+                            down options. The callback data will include:
+                        </p>
+                        <ul>
+                            <li>selectedIndex <span class="weak">(0 based),</span></li>
+                            <li>selectedItem <span class="weak">(HTML 'li' element),</span></li>
+                            <li>selectedData <span class="weak">(nested object with text, value, description, imageSrc)</span></li>
+                        </ul>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">6</span>Dropdown with default selection
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoDefaultSelection">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoDefaultSelection').ddslick({
+    data: ddData,
+    defaultSelectedIndex:2
+});
+</pre>
+                        <p>
+                            Use Zero based plugin option <code>defaultSelectedIndex</code> to set up plugin
+                            to pre select the index, when first initializing.
+                            <br />
+                            <strong>Note:</strong>When there is no <code>selectText</code> the plugin selects
+                            the first item index[0] from dropdown options.
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">7</span>Dropdown with image on right
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoImageRight">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoImageRight').ddslick({
+    data: ddData,
+    imagePosition:"right",
+    selectText: "Select your favorite social network"
+});
+</pre>
+                        <p>
+                            You have the flexibility to position image either on left or right using <code>imagePosition</code>,
+                            depending on your preference.
+                            <br />
+                            Also you can add your own styles to these images by modifying their CSS class <code>
+                            .dd-option-image, .dd-selected-image
+                            </code> on your page. For e.g. plugin sets
+                            the default max-width for images to 64px, that you can overwrite by adding these
+                            classes to your page and overwriting max-width style.
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">8</span>Dropdown with truncated description
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="demoTruncated">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+$('#demoTruncated').ddslick({
+    data: ddDataLongDescription,
+    selectText: "Select your favorite social network",
+    truncateDescription: true,
+    onSelected: function(data){
+        displaySelectedData("5: Dropdown with truncated description", data);
+    }
+});
+</pre>
+                        <p>
+                            By default plugin will truncate the description in selected view if it overflows.
+                            You may however turn the default behavior by setting <code>truncateDescription:false</code>
+                            to show the complete description. Either way you still get the complete description
+                            with returned selected data. Also use <code>.dd-desc</code> to add your own styles
+                            to description.
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                    <article class="half-l">
+                        <h3>
+                        <span class="demo-index">9</span>Dropdown with no image or description
+                        </h3>
+                        <div class="demo-content">
+                            <div class="demo-live">
+                                <div id="divNoImage">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="half-r">
+                        Source:
+<pre class="prettyprint">
+var ddBasic = [
+    { text: "Facebook", value: 1, },
+    { text: "Twitter", value: 2, },
+    { text: "LinkedIn", value: 3, },
+    { text: "Foursquare", value: 4, }
+];
+$('#divNoImage').ddslick({
+    data: ddBasic,
+    selectText: "Select your favorite social network"
+});
+</pre>
+                        <p>
+                            The plugin is built to work as beautiful even without images!
+                        </p>
+                    </article>
+                    <div class="clearfix">
+                    </div>
+                </section>
+                <div class="clearfix"></div>
+                <div id="dd-modal">
+                    <div id="dd-display-data"></div>
+                    <br />
+                    <button id="close-modal" class="button-basic">
+                    Close
+                    </button>
+                </div>
+                
+                <section>
+                    
+                    <article>
+                        <h2>How to use with JSON data</h2>
+                        <ol>
+                            <li>
+                                Include the plugin javascript file along with jquery:
+                                <pre class="prettyprint">&lt;script src="https://code.jquery.com/jquery-2.2.4.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/dist/jquery.ddslick.js" &gt;&lt;/script&gt;</pre>
+                            </li>
+                            <li>
+                                Create an empty placeholder for the custom drop down: eg:
+                                <pre class="prettyprint">&lt;div id="myDropdown"&gt;&lt;/div&gt;</pre>
+                            </li>
+                            <li>
+                                Get the drop down options (JSON Data) to be binded to plugin:
+<pre class="prettyprint" id="JSONData">//Dropdown plugin data
+var ddData = [
+    {
+        text: "Facebook",
+        value: 1,
+        selected: false,
+        description: "Description with Facebook",
+        imageSrc: "http://i.imgur.com/XkuTj3B.png"
+    },
+    {
+        text: "Twitter",
+        value: 2,
+        selected: false,
+        description: "Description with Twitter",
+        imageSrc: "http://i.imgur.com/8ScLNnk.png"
+    },
+    {
+        text: "LinkedIn",
+        value: 3,
+        selected: true,
+        description: "Description with LinkedIn",
+        imageSrc: "http://i.imgur.com/aDNdibj.png"
+    },
+    {
+        text: "Foursquare",
+        value: 4,
+        selected: false,
+        description: "Description with Foursquare",
+        imageSrc: "http://i.imgur.com/kFAk2DX.png"
+    }
+];
+</pre>
+                            </li>
+                            <li>
+                                Attach plugin to this placeholder like:
+<pre class="prettyprint">$('#myDropdown').ddslick({
+    data:ddData,
+    width:300,
+    selectText: "Select your preferred social network",
+    imagePosition:"right",
+    onSelected: function(selectedData){
+        //callback function: do something with selectedData;
+    }   
+});
+</pre>
+                                Note: Use onSelected callback function to do something after the drop down option is selected. The selectedData will contain the selected text, value, description, imageSrc.
+                            </li>
+                        </ol>
+                    </article>
+                    <div class="spacer"></div>
+                    <article>
+                        <h2>How to use with HTML &lt;select&gt; and &lt;option&gt;</h2>
+                        <ol>
+                            <li>
+                                Include the plugin javascript file along with jquery:
+<pre class="prettyprint">&lt;script src="https://code.jquery.com/jquery-2.2.4.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="/dist/jquery.ddslick.js" &gt;&lt;/script&gt;</pre>
+                            </li>
+                            <li>
+                                Add HTML5 data attributes to your select elements: eg:
+<pre class="prettyprint" id="sampleHtmlSelect">&lt;select id="demo-htmlselect"&gt;
+    &lt;option value="0" data-imagesrc="http://i.imgur.com/XkuTj3B.png"
+        data-description="Description with Facebook"&gt;Facebook&lt;/option&gt;
+    &lt;option value="1" data-imagesrc="http://i.imgur.com/8ScLNnk.png"
+        data-description="Description with Twitter"&gt;Twitter&lt;/option&gt;
+    &lt;option value="2" selected="selected" data-imagesrc="http://i.imgur.com/aDNdibj.png"
+        data-description="Description with LinkedIn"&gt;LinkedIn&lt;/option&gt;
+    &lt;option value="3" data-imagesrc="http://i.imgur.com/kFAk2DX.png"
+        data-description="Description with Foursquare"&gt;Foursquare&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                            </li>
+                            <li>
+                                Attach plugin to this HTML select element:
+<pre class="prettyprint">$('#myDropdown').ddslick({
+    onSelected: function(selectedData){
+        //callback function: do something with selectedData;
+    }   
+});
+</pre>
+                            </li>
+                        </ol>
+                        <div class="spacer"></div>
+                    </article>
+                    
+                    <article>
+                        <h2>Plugin Options:</h2>
+                        <ul id="options">
+                            <li><strong>data</strong> <span class="weak">default value '[]'</span><br /> JSON data to populate drop down plugin options</li>
+                            <li><strong>width</strong> <span class="weak">default value '260'</span><br /> Width in px for the drop down plugin i.e. 400, or "400px".</li>
+                            <li><strong>height</strong> <span class="weak">default value 'null'</span><br /> Height in px for the drop down options i.e. 300, or "300px". The scroller will automatically be added if options overflows the height.</li>
+                            <li><strong>background</strong> <span class="weak">default value '#eee'</span><br /> Background for your drop down. You can use the css shorthand notation for setting backgrounds<br /> i.e. <code>background: #CCCCCC;</code> or <code>background: transparent url('your-background-image.jpg') no-repeat 0 0 scroll</code></li>
+                            <li><strong>selectText</strong> <span class="weak">default value 'Select...'</span><br /> Set default text to display when no option is selected.</li>
+                            <li><strong>imagePosition</strong> <span class="weak">default value 'left'</span><br /> Set positioning of image in your drop down, left or right. See demo 5 above.</li>
+                            <li><strong>showSelectedHTML</strong> <span class="weak">default value 'true'</span><br /> Set what to be displayed as selected. Setting false will only display title. Setting true displays title, description and image.</li>
+                            <li><strong>defaultSelectedIndex</strong> <span class="weak">default value 'null'</span><br /> Set the default index to be selected when initializing plugin. If not provided then <code>selectText</code> will be displayed. See demo 4 above.</li>
+                            <li><strong>truncateDescription</strong> <span class="weak">default value 'true'</span><br /> Truncate the long description when selected. Options however display the full text. The plugin still returns complete description on selection. See demo 6 above.</li>
+                            <li><strong>onSelected</strong> <span class="weak">default value 'function () { }'</span><br /> Callback function when an option is selected in the drop down. See demo 3 above.</li>
+                            <li><strong>keepJSONItemsOnTop</strong> <span class="weak">default value 'false'</span><br /> You can use both HTML select elements and JSON data to populate your drop down. By default JSON items are added in drop down after the select options.</li>
+                        </ul>
+                        <h2>Plugin Methods:</h2>
+                        <ul>
+                            <li><strong>select</strong><br /> You may use plugin's select method like <code>$('#demoSetSelected').ddslick('select', {index: i });</code><br /> to select a particular index. See demo 3 above.</li>
+                            <li><strong>toggle</strong><br /> You may use plugin's toggle method like <code>$('#demoSetSelected').ddslick('toggle');</code><br /> to toggle drop down options.</li>
+                            <li><strong>open</strong><br /> You may use plugin's open method like <code>$('#demoSetSelected').ddslick('open');</code><br /> to open drop down options.</li>
+                            <li><strong>close</strong><br /> You may use plugin's close method like <code>$('#demoSetSelected').ddslick('close');</code><br /> to close drop down options.</li>
+                            <li><strong>destroy</strong><br /> You may use plugin's destroy method to restore to original element like <code>$('#demoSetSelected').ddslick('destroy');</code><br /> If you had selected an option with ddSlick, the <code>selected</code> attribute will be passed to the original HTML select, so you don't loose the selection. This will also unbind any event handlers attached by plugin to this control. See demo 2 above.</li>
+                        </ul>
+                        <hr />
+                    </article>
+                </section>
+            </section>
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js" type="text/javascript"></script>
+            <script src="assets/js/jquery.ddslick.js" type="text/javascript"></script>
+            <script src="assets/js/demo.js"></script>
+            
+        </html>

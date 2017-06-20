@@ -1,0 +1,21 @@
+<div id="{{container_id}}" class="dd-container">
+    <div class="dd-select">
+        <input class="dd-selected-value" type="hidden" value="{{selected_value}}" name="{{input_name}}">
+        <a class="dd-selected">
+            {{empty_value}}
+        </a>
+        <span class="dd-pointer dd-pointer-down"></span>
+    </div>
+    <ul class="dd-options dd-click-off-close">
+        {{#options}}
+        <li>
+            <a class="dd-option">
+                <input class="dd-option-value" type="hidden" value="{{value}}">
+                <img class="dd-option-image {{imagePosition}}" src="{{imageSrc}}">
+                <label class="dd-option-text">{{text}}</label>
+                <small class="dd-option-description dd-desc">{{description}}</small>
+            </a>
+        </li>
+        {{/options}}
+    </ul>
+</div>
